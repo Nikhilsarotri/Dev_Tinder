@@ -1,22 +1,19 @@
 import userModels from "../Models/userModel.js";
 import JWT from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import  fs from "fs"
+import fs from "fs";
 import cloudinary from "../helper/cloudinary.js";
 import path from "path";
-
 
 //_________________createuser/signup___________________________
 export const createUser = async (req, res) => {
   try {
     const { name, email, password, gender, about } = req.body;
-    const image= req.file?req.file.path:null;
+    const image = req.file ? req.file.path : null;
     if (!name || !email || !password || !gender) {
       return res.status(404).json("invalid payload");
     }
 
-
-   
     const existingemail = await userModels.findOne({ email });
     console.log(existingemail, "???????????????");
     if (existingemail) {
@@ -31,17 +28,15 @@ export const createUser = async (req, res) => {
       gender,
     });
 
-    if(image){
-      const result= await  cloudinary.uploader.upload(image)
+    if (image) {
+      const result = await cloudinary.uploader.upload(image);
 
-      user= await userModels.findByIdAndUpdate(user._id,
-        {image,image_url:result.secure_url},
-        {new:true}
-      )
-}
-
-
-
+      user = await userModels.findByIdAndUpdate(
+        user._id,
+        { image, image_url: result.secure_url },
+        { new: true }
+      );
+    }
 
     return res.status(201).json({ message: "user created sucessfully", user });
   } catch (err) {
@@ -112,7 +107,6 @@ export const userlogin = async (req, res) => {
 };
 //_________________logout___________________________
 
-
 export const logoutuser = async (req, res, next) => {
   try {
     res.cookie("token", null, {
@@ -144,7 +138,6 @@ export const updateuser = async (req, res, next) => {
       return res.status(400).json({ message: "no user found" });
     }
     const { name, about, gender } = req.body;
-
 
     let newImage = loginuser.image;
     let imageUrl = loginuser.image_url;
@@ -188,8 +181,43 @@ export const updateuser = async (req, res, next) => {
   }
 };
 
-
-
 //_________________update/password___________________________
 
+export const updatePassword = async (req, res, next) => {
+  try {
+    const loginuser = req.user;
+    if (!loginuser) {
+      return res.status(400).json({ message: "no user found" });
+    }
+    const { currentpasword, newPassword } = req.body;
+    const hashedcurrentpassword = await bcrypt.hash(currentpasword, 10);
 
+    console.log(loginuser.password);
+    const passwordMatch = bcrypt.compare(
+      hashedcurrentpassword,
+      loginuser.password
+    );
+    if (!passwordMatch) {
+      return res.status(400).json({ message: "password not  matched" });
+    }
+
+    const hashednewPassword = await bcrypt.hash(newPassword, 10);
+    const data = {
+      password: hashednewPassword,
+    };
+
+    const updateduser = await userModels.findByIdAndUpdate(
+      loginuser._id,
+      data,
+      {
+        new: true,
+      }
+    );
+
+    return res
+      .status(200)
+      .json({ message: "password updated sucessfully", updateduser });
+  } catch (err) {
+    return res.status(400).json({ message: err.message });
+  }
+};
