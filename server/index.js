@@ -3,6 +3,7 @@ import dotenv  from "dotenv"
 import connectdb from "./db.js";
 import router from "./Routes/userRouter.js";
 import  userroute from "./Routes/userRouter.js"
+import connectionroute from "./Routes/connectionRouter.js"
 import cookieParser from "cookie-parser";
 
 
@@ -12,6 +13,7 @@ dotenv.config();
 app.use(cookieParser())
 const port= process.env.PORT||8001
 app.use("/user",userroute)
+app.use("/connections",connectionroute)
 
 app.listen(port,()=>{
     console.log(`server is running on port ${port}`)
