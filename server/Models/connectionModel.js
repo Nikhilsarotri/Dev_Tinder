@@ -3,12 +3,14 @@ import mongoose, { Schema } from "mongoose";
 const connectionSchema= new Schema({
 fromUserId:{
     type:mongoose.Schema.Types.ObjectId,
+    ref:"User",
     required:true
 },
 
 toUserId:{
 
     type:mongoose.Schema.Types.ObjectId,
+    ref:"User",
     required:true
 },
 
