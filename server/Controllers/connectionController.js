@@ -32,12 +32,10 @@ export const CreateConnection = async (req, res, next) => {
       toUserId,
       status,
     });
-    return res
-      .status(200)
-      .json({
-        message: req.user.name + " is " + status + " in " + toUser.name,
-        Connection,
-      });
+    return res.status(200).json({
+      message: req.user.name + " is " + status + " in " + toUser.name,
+      Connection,
+    });
   } catch (err) {
     return res.status(400).json({ message: err.message });
   }
@@ -74,71 +72,88 @@ export const reviewRequest = async (req, res, next) => {
   }
 };
 
-
 //___________________________________get all pending request for login user____________________________
 
+export const pendingRequest = async (req, res) => {
+  try {
+    const loginUser = req.user;
 
-export const pendingRequest=async(req,res)=>{
-  try{
-
-    const loginUser= req.user
-
-    const pendingrequest= await ConnectionModels.find({
+    const pendingrequest = await ConnectionModels.find({
       toUserId: loginUser._id,
-      status:"interested"
-
-    }).populate("fromUserId","name  image_url about ")
-    return res.status(200).json({message:"succesfuly get all pending requests",pendingrequest})
-
-
-
-
+      status: "interested",
+    }).populate("fromUserId", "name  image_url about ");
+    return res
+      .status(200)
+      .json({ message: "succesfuly get all pending requests", pendingrequest });
+  } catch (err) {
+    return res.status(400).json({ message: err.message });
   }
-  catch(err){
-return res.status(400).json({message:err.message})
-
-
-  }
-}
-
+};
 
 //_______________connections__________________
 
-export  const Connections_friends= async(req,res,next)=>{
-try{
-const loginUser=req.user
+export const Connections_friends = async (req, res, next) => {
+  try {
+    const loginUser = req.user;
 
-  const connections= await ConnectionModels.find({
-   $or:[ {status:"accepted",toUserId:loginUser._id},
-    {status:"accepted",fromUserId:loginUser._id,}
+    const connections = await ConnectionModels.find({
+      $or: [
+        { status: "accepted", toUserId: loginUser._id },
+        { status: "accepted", fromUserId: loginUser._id },
+      ],
+    })
+      .populate("fromUserId", "name  image_url about ")
+      .populate("toUserId", "name  image_url about ");
+    const data = connections.map((row) => {
+      if (row.fromUserId._id.toString() === loginUser._id.toString()) {
+        return row.toUserId;
+      }
+      return row.fromUserId;
+    });
 
+    return res
+      .status(200)
+      .json({ message: "sucessfully get all connections", data });
+  } catch (err) {
+    return res.status(400).json({ message: err.message });
+  }
+};
+//__________________________FEED_____________________________________
+export const feed = async (req, res, next) => {
+  try {
+    const loginUser = req.user;
 
-   ]
-  }).populate("fromUserId","name  image_url about ").populate("toUserId","name  image_url about ")
-const data= connections.map((row)=>{
-if(row.fromUserId._id.toString()===loginUser._id.toString()){
-  return  row.toUserId
+    const connections_requets = await ConnectionModels.find({
+      $or: [{ fromUserId: loginUser._id }, { toUserId: loginUser._id }],
+    }).select("fromUserId toUserId");
+    console.log(
+      "her is my connection_______________________",
+      connections_requets
+    );
 
-}
-return row.fromUserId
+    const hide_Userfrom_feed = new Set();
+    connections_requets.forEach((req) => {
+      hide_Userfrom_feed.add(req.toUserId.toString()),
+        hide_Userfrom_feed.add(req.fromUserId.toString());
+    });
+    const page = parseInt(req.query.page) || 1; //pagination start
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
 
+    const users = await userModels
+      .find({
+        $and: [
+          { _id: { $nin: Array.from(hide_Userfrom_feed) } },
+          { _id: { $ne: loginUser._id } },
+        ],
+      })
+      .select("name  image_url about")
+      .skip(skip)
+      .limit(limit);
 
-})
-
-
-
-
-  return res.status(200).json({message:"sucessfully get all connections",data})
-
-
-
-
-}
-catch(err){
-return res.status(400).json({message:err.message})
-
-}
-
-
-
-}
+    return res.status(200).json({ message: "sucessfully get users", users });
+  } catch (err) {
+    console.log(err);
+    return res.status(400).json({ message: err.message });
+  }
+};
