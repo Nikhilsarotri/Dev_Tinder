@@ -97,10 +97,11 @@ export const userlogin = async (req, res) => {
     res.cookie("token", token);
     return res.status(200).json({
       message: "login sucessfully",
-      token,
-      name: user.name,
-      userid: user._id,
-    });
+      user})
+    //   token,
+    //   name: user.name,
+    //   userid: user._id,
+    // });
   } catch (err) {
     return res.status(404).json({ message: err.message });
   }
