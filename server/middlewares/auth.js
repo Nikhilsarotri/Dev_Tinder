@@ -4,7 +4,7 @@ import userModels from "../Models/userModel.js";
   try {
     const { token } = req.cookies;
     if (!token) {
-      return res.status(400).json({ message: "no token" });
+      return res.status(401).json({ message: "please login" });
     }
     const decodedata =  JWT.verify(token,process.env.JWT_SECRET_KEY);
 
