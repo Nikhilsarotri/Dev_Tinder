@@ -8,7 +8,7 @@ import path from "path";
 //_________________createuser/signup___________________________
 export const createUser = async (req, res) => {
   try {
-    const { name, email, password, gender, about } = req.body;
+    const { name, email, password, gender, about ,age} = req.body;
     const image = req.file ? req.file.path : null;
     if (!name || !email || !password || !gender) {
       return res.status(404).json("invalid payload");
@@ -26,6 +26,7 @@ export const createUser = async (req, res) => {
       about,
       password: hashedpassword,
       gender,
+      age,
     });
 
     if (image) {
@@ -109,7 +110,7 @@ export const userlogin = async (req, res) => {
 
 export const logoutuser = async (req, res, next) => {
   try {
-    res.cookie("token", null, {
+    res.clearCookie("token", "", {
       expiresIn: new Date(Date.now()),
     });
     return res.status(200).json({ message: "Logout sucessfully" });
@@ -137,7 +138,7 @@ export const updateuser = async (req, res, next) => {
     if (!loginuser) {
       return res.status(400).json({ message: "no user found" });
     }
-    const { name, about, gender } = req.body;
+    const { name, about, gender,age } = req.body;
 
     let newImage = loginuser.image;
     let imageUrl = loginuser.image_url;
@@ -165,6 +166,7 @@ export const updateuser = async (req, res, next) => {
       gender: gender || loginuser.gender,
       image: newImage,
       image_url: imageUrl,
+      age:age||loginuser.age
     };
     const updateduser = await userModels.findByIdAndUpdate(
       loginuser._id,

@@ -147,11 +147,11 @@ export const feed = async (req, res, next) => {
           { _id: { $ne: loginUser._id } },
         ],
       })
-      .select("name  image_url about")
+      .select("name  image_url about gender")
       .skip(skip)
       .limit(limit);
 
-    return res.status(200).json({ message: "sucessfully get users", users });
+    return res.status(200).json({ users });
   } catch (err) {
     console.log(err);
     return res.status(400).json({ message: err.message });
