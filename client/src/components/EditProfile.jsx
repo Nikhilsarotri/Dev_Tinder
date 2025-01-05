@@ -56,11 +56,11 @@ catch(err){
 
     <>
     
-    <div className=" flex justify-center m-10 "> 
-    <div className="card bg-base-300 w-96 shadow-2xl flex items-center align-content: center ">
+    <div className=" flex justify-center m-10    "> 
+    <div className="card  w-96 shadow-2xl flex items-center align-content: center ">
   <div className="card-body ">
     <h2 className="card-title justify-center ">Edit Profile</h2>
-    <input
+  Name<input
   type="text"
   value={name}
   placeholder="Name........"
@@ -73,7 +73,7 @@ catch(err){
   placeholder="Gender....."
   className="input input-bordered input-info w-full max-w-xs" /> */}
  
- <div className="dropdown dropdown-end ">
+ Gender<div className="dropdown dropdown-end ">
       {/* Dropdown toggle */}
       <div
         tabIndex={0}
@@ -107,20 +107,20 @@ catch(err){
       </ul>
     </div>
 
-<input
+About<input
   type="text"
   value={about}
   onChange={(e)=>setAbout(e.target.value)}
   placeholder="About....."
   className="input input-bordered input-info w-full max-w-xs" />
 
-<input
+Photo<input
   type="text"
   value={photo}
   onChange={(e)=>setPhoto(e.target.value)}
   placeholder="PhotoUrl......"
   className="input input-bordered input-info w-full max-w-xs" />
-   <input
+   Age<input
   type="text"
   value={age}
   onChange={(e)=>setAge(e.target.value)}
@@ -139,13 +139,12 @@ catch(err){
 </div>
 </div>
 
-{showtoast&&<div className="toast toast-top toast-center">
-  <div className="alert alert-info">
-    <span>Profile Updated Sucessfully.</span>
+{showtoast&&<div className="toast toast-end toast-middle">
+ 
+  <div className="alert alert-success">
+    <span>Profile Saved successfully.</span>
   </div>
-  
 </div>}
-    
     
     </>
 )

@@ -57,7 +57,7 @@ return(
     <div className="card-actions justify-center">
       <button 
       onClick={handleLogin}
-      className="btn bg-sky-500 w-28">Login</button>
+      className="btn bg-gradient-to-r from-blue-100 to-teal-400 w-28">Login</button>
     </div>
   </div>
 </div>

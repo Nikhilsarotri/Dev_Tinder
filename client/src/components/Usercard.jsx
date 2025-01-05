@@ -2,7 +2,7 @@ export const UserCard= ({user})=>{
     console.log(user)
     return(
 
-<div className="card card-compact bg-base-100 w-96 shadow-xl">
+<div className="card card-compact bg-slate-50 w-96 shadow-xl ">
   <figure>
     <img
       src={user?.image_url}
