@@ -102,8 +102,8 @@ export const Connections_friends = async (req, res, next) => {
         { status: "accepted", fromUserId: loginUser._id },
       ],
     })
-      .populate("fromUserId", "name  image_url about ")
-      .populate("toUserId", "name  image_url about ");
+      .populate("fromUserId", "name  image_url about gender ")
+      .populate("toUserId", "name  image_url about gender ");
     const data = connections.map((row) => {
       if (row.fromUserId._id.toString() === loginUser._id.toString()) {
         return row.toUserId;

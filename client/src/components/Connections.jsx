@@ -36,7 +36,30 @@ console.log(res.data.data)
 return(
  connections&&(   
 <>
-<div className="h-screen"><h1>connections</h1></div>
+<div className="flex justify-center w-full   my-10"><h1 className="text-2xl font-bold">Connections</h1></div>
+
+
+{connections.map((connection)=>{
+const{name,gender,about,image_url,age}=connection
+console.log(gender)
+  
+  return(
+    <div className="  flex m-4 p-4 bg-blue-200/30  backdrop-blur-md shadow-md   w-1/2 mx-auto border rounded-lg">
+        <div>        <img src={image_url} className="w-24 h-24 rounded-full"  />
+        </div>
+        <div className="mx-5"> <h1 className="text-center font-semibold text-2xl ">{name.toUpperCase()}</h1>
+        <p className="text-center  ">{age}</p>
+       <p className="text-center ">{gender}</p>
+       <p className="text-center">{about}</p></div>
+      
+</div>
+    )
+})}
+
+
+
+
+
 </>
 
  )

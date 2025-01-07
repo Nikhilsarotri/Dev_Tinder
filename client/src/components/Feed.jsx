@@ -37,7 +37,8 @@ getfeed();
 
 return(
     feed&&(
-<><div className=" flex justify-center items-center my-10 ">
+<>
+<div className=" flex justify-center items-center my-10 h-screen ">
 <UserCard  user={feed[1]}/>
 </div>
 </>
