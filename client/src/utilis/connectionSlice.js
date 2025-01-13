@@ -14,7 +14,7 @@ reducers:{
     },
 
     removeConnections:(state,action)=>{
-        return null
+        return []
     }
 }
 

@@ -5,6 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { removeUser } from "../utilis/userSlice";
 import { Base_Url } from "../constants";
 import { useState } from "react";
+import { removeConnections } from "../utilis/connectionSlice";
+
 
 const Navbar = () => {
   const user = useSelector((store) => store?.user);
@@ -29,6 +31,8 @@ const handleLogout=async(req,res)=>{
    withCredentials:true
   })
   dispatch(removeUser())
+  dispatch(removeConnections())
+//   dispatch(removerequest())
 navigate("/login")
 
   }

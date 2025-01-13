@@ -65,7 +65,7 @@ export const reviewRequest = async (req, res, next) => {
     connection.status = status;
     const data = await connection.save();
     return res
-      .status(400)
+      .status(200)
       .json({ message: `request is ${status} sucessfully`, data });
   } catch (err) {
     return res.status(400).json({ message: err.message });
@@ -81,7 +81,7 @@ export const pendingRequest = async (req, res) => {
     const pendingrequest = await ConnectionModels.find({
       toUserId: loginUser._id,
       status: "interested",
-    }).populate("fromUserId", "name  image_url about ");
+    }).populate("fromUserId", "name gender age image_url about ");
     return res
       .status(200)
       .json({ message: "succesfuly get all pending requests", pendingrequest });
@@ -102,8 +102,8 @@ export const Connections_friends = async (req, res, next) => {
         { status: "accepted", fromUserId: loginUser._id },
       ],
     })
-      .populate("fromUserId", "name  image_url about gender ")
-      .populate("toUserId", "name  image_url about gender ");
+      .populate("fromUserId", "name age image_url about gender ")
+      .populate("toUserId", "name  age image_url about gender ");
     const data = connections.map((row) => {
       if (row.fromUserId._id.toString() === loginUser._id.toString()) {
         return row.toUserId;
