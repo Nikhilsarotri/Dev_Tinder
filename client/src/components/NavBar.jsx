@@ -6,6 +6,7 @@ import { removeUser } from "../utilis/userSlice";
 import { Base_Url } from "../constants";
 import { useState } from "react";
 import { removeConnections } from "../utilis/connectionSlice";
+import { clearfeed } from "../utilis/feedSlice";
 
 
 const Navbar = () => {
@@ -32,6 +33,8 @@ const handleLogout=async(req,res)=>{
   })
   dispatch(removeUser())
   dispatch(removeConnections())
+  dispatch(clearfeed())
+
 //   dispatch(removerequest())
 navigate("/login")
 
@@ -92,7 +95,7 @@ sticky top-0 z-50">
               className="btn btn-ghost btn-circle avatar "
             >
               <div className="w-12  rounded-full">
-                <img alt="Tailwind CSS Navbar component" src={user?.image_url} />
+                <img alt="image" src={user?.image_url||"https://img.freepik.com/free-psd/contact-icon-illustration-isolated_23-2151903337.jpg?semt=ais_hybrid"} />
               </div>
             </div>
             <ul

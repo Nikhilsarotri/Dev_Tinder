@@ -147,7 +147,7 @@ export const feed = async (req, res, next) => {
           { _id: { $ne: loginUser._id } },
         ],
       })
-      .select("name  image_url about gender")
+      .select("name age image_url about gender")
       .skip(skip)
       .limit(limit);
 
