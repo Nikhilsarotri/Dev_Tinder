@@ -9,9 +9,21 @@ const Login = () => {
   const [email, setEmail] = useState("vikas2@gmail.com");
   const [password, setPassword] = useState("vikas");
   const dispatch = useDispatch();
+  const [error, setError] = useState("")
   const navigate = useNavigate();
-
+  const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
   const handleLogin = async () => {
+
+    if (!email || !password) {
+      setError("Please enter both email and password.");
+      return;
+    }
+
+    if (!emailPattern.test(email)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
     try {
       const result = await axios.post(
         `${Base_Url}/user/login`,
@@ -33,7 +45,7 @@ const Login = () => {
   return (
     <>
       <div className="flex justify-center m-10">
-        <div className="card bg-base-300 w-96 shadow-2xl flex items-center">
+        <div className="card  w-96 shadow-2xl flex items-center align-content: center ">
           <div className="card-body">
             <h2 className="card-title justify-center">Login</h2>
             <input
@@ -50,6 +62,7 @@ const Login = () => {
               placeholder="Password....."
               className="input input-bordered input-info w-full max-w-xs"
             />
+             {error && <p className="text-red-500 text-center mt-2">{error}</p>}
             <div className="card-actions justify-center">
               <button
                 onClick={handleLogin}
