@@ -11,6 +11,7 @@ import Feed from "./components/Feed";
 import Connections from "./components/Connections";
 import Requests from "./components/Requests";
 import Signup from "./components/Signup";
+import Chatpage from "./components/Chat/Chatpage";
 
 function App() {
   
@@ -26,6 +27,8 @@ function App() {
     <Route path="/connections" element={<Connections/>}/>
     <Route path="/requests" element={<Requests/>}/>
     <Route path="/signup" element={<Signup/>}/>
+    <Route path="/chat" element={<Chatpage/>}/>
+
 
 
     </Route>
