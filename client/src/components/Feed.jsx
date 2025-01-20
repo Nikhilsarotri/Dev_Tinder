@@ -34,14 +34,14 @@ getfeed();
 },[])
 if(!feed ) return;
 if(feed.length<=0){
-    return <h1 className="flex justify-center my-10">No more users avaliable</h1>
+    return <h1 className="flex bg-back justify-center my-10">No more users avaliable</h1>
 }
 
 
 return(
     feed&&(
 <>
-<div className=" flex justify-center items-center my-10 h-screen ">
+<div className=" flex bg-back justify-center items-center my-10 h-screen ">
 <UserCard  user={feed[0]}/>
 </div>
 </>

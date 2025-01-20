@@ -3,13 +3,14 @@ import { Base_Url } from "../constants"
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { addConnections } from "../utilis/connectionSlice"
-
+import { useNavigate } from "react-router-dom"
  const Connections=()=>{
 
 
     
 const connections=useSelector((store)=>store.connections)
     const dispatch= useDispatch()
+    const navigate=useNavigate()
     console.log("herrrerrer",connections,"8888888")
 
 
@@ -40,6 +41,23 @@ console.log(res.data.data)
         return <h1 className="text-center mt-10 text-gray-500">No connection found</h1>;
       }
 
+
+      const handlemessageclick=async()=>{
+
+try{
+
+  navigate("/chat")
+
+}
+catch(err){
+
+
+
+}
+
+
+      }
+
 return(
 
 
@@ -62,7 +80,7 @@ console.log(gender)
         <p className="text-center  ">{age}</p>
        <p className="text-center ">{gender}</p>
        <p className="text-center">{about}</p></div>
-      <div><button className="px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 mx-2 my-2  ">Message</button></div>
+      <div><button className="px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 mx-2 my-2  " onClick={handlemessageclick}>Message</button></div>
 </div>
 
 

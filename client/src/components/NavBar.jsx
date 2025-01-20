@@ -48,7 +48,7 @@ navigate("/login")
 
 
   return (
-    <div className="navbar bg-gradient-to-r from-blue-100 to-teal-400
+    <div className="navbar bg-back
 sticky top-0 z-50">
       <div className="flex-1">
       <Link to="/">

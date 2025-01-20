@@ -3,7 +3,7 @@ const Footer=()=>{
 
     return(
     <>
-   <footer className="footer footer-center bg-gradient-to-r from-blue-100 to-teal-400 text-base-content rounded p-4">
+   <footer className="footer footer-center bg-back text-base-content rounded p-4">
   <nav className="grid grid-flow-col gap-4">
     <a className="link link-hover">About us</a>
     <a className="link link-hover">Contact</a>
