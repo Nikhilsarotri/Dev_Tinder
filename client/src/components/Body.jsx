@@ -42,7 +42,7 @@ const Body = () => {
 
 
   return (
-    <div className="flex flex-col bg-[#FBFBFB] min-h-screen">
+    <div className="flex flex-col bg-[#FBFBFB] min-h-screen overflow-hidden">
     <Navbar />
     <main className="flex-grow">
       <Outlet />

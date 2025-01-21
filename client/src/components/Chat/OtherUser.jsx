@@ -3,7 +3,7 @@ import SingleUser from "./SingleUser";
 
 const OtherUser = () => {
   return (
-    <div className="overflow-auto">
+    <div className=" " >
      <SingleUser/>
     </div>
   );

@@ -1,8 +1,10 @@
 import React from "react";
+import Sendinput from "./Sendinput";
+import Messages from "./Messages";
 
 const MessageContainer = () => {
   return (
-    <div className="  md:min-w-[750px] flex flex-col ">
+    <div className="  md:min-w-[750px] flex flex-col  ">
       <div className="flex items-center gap-2  bg-sky-500  text-white   rounded-sm px-4 py-2 mb-2">
         <div className="avatar online">
           <div className="w-12 rounded-full">
@@ -15,7 +17,11 @@ const MessageContainer = () => {
           </div>
         </div>
       </div>
-      
+     <div className="overflow-auto"> <Messages/>
+      <Messages/>
+    
+     </div>
+     <Sendinput/>
     </div>
   );
 };
