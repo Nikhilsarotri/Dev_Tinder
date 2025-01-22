@@ -4,13 +4,13 @@ import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { addrequest, removerequests } from "../utilis/requestSlice";
 import { useSelector } from "react-redux";
-
+import { useNavigate } from "react-router-dom";
 const Requests=()=>{
     const requests=useSelector((store)=>store.requests)
 console.log(requests,"request in store")
     const dispatch= useDispatch();
-
-
+  const navigate=useNavigate()
+ 
 
     const fetchRequests= async()=>{
         try{
@@ -23,8 +23,11 @@ console.log(requests,"request in store")
     }
 
 
-catch(err){
-    console.log(err.message)
+catch(error){
+  if (error.response && error.response.data.message === "jwt expired") {
+    navigate("/login")
+  }
+
     return err.message
 
 }}

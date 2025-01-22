@@ -79,10 +79,13 @@ import { Base_Url } from "../constants";
 import { useDispatch } from "react-redux";
 import { removeUserfeed } from "../utilis/feedSlice";
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
+
 
 export const UserCard = ({ user }) => {
   const [showToast, setToast] = useState(false);
   const dispatch = useDispatch();
+  const navigate=useNavigate()
 
   const handleFeedRequest = async (status, _id) => {
     try {
@@ -96,7 +99,10 @@ export const UserCard = ({ user }) => {
       setTimeout(() => {
         setToast(false);
       }, 2000);
-    } catch (err) {
+    } catch (error) {
+      if (error.response && error.response.data.message === "jwt expired") {
+        navigate("/login")
+      }
       console.log(err.message);
     }
   };

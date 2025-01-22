@@ -5,12 +5,14 @@ import { addConnections } from "../../utilis/connectionSlice";
 import { useEffect } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
+import { useNavigate } from 'react-router-dom';
+
 
 import { Base_Url } from "../../constants";
 const Sidebar = () => {
   const connections = useSelector((store) => store.connections);
   const dispatch= useDispatch()
-
+const navigate=useNavigate
   const fetchConnections=async()=>{
     try{
         
@@ -18,9 +20,11 @@ const Sidebar = () => {
 console.log(res.data.data)
 dispatch(addConnections(res.data.data))
     }
-    catch(err){
-
-        console.log(err.message)
+    catch(error){
+      if (error.response && error.response.data.message === "jwt expired") {
+        navigate("/login")
+      }
+        console.log(error.message)
 
     }
 

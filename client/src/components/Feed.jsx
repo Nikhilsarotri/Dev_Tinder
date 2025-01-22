@@ -4,11 +4,13 @@ import { Base_Url } from "../constants";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addfeed } from "../utilis/feedSlice";
+import { useNavigate } from 'react-router-dom';
+
 
 const Feed=()=>{
 const feed= useSelector((store)=>store.feed)
 
-
+const navigate=useNavigate();
     const dispatch=useDispatch()
 
  const getfeed= async()=>{
@@ -20,8 +22,11 @@ dispatch(addfeed(res.data.users))
      
 
     }
-    catch(err){
-console.log(err)
+    catch(error){
+        if (error.response && error.response.data.message === "jwt expired") {
+            navigate("/login")
+          }
+
     }
 
 

@@ -4,6 +4,7 @@ import connectdb from "./db.js";
 import router from "./Routes/userRouter.js";
 import  userroute from "./Routes/userRouter.js"
 import connectionroute from "./Routes/connectionRouter.js"
+import messageRoute from "./Routes/messageRoutes.js"
 import cookieParser from "cookie-parser";
 import cors from "cors"
 
@@ -19,6 +20,7 @@ app.use(cookieParser())
 const port= process.env.PORT||8001
 app.use("/user",userroute)
 app.use("/connections",connectionroute)
+app.use("/message",messageRoute)
 
 
 

@@ -3,6 +3,7 @@ import { useState } from "react"
 import { Base_Url } from "../constants"
 import { useDispatch } from "react-redux"
 import { addUser } from "../utilis/userSlice"
+import { useNavigate } from "react-router-dom"
 
 export const Editprofile=({user})=>{
 
@@ -21,6 +22,7 @@ export const Editprofile=({user})=>{
     const[photo,setPhoto]= useState(user.image_url)
     const[age,setAge]= useState(user.age)
     const dispatch=useDispatch();
+    const navigate=useNavigate
     const [showtoast,setToast]= useState(false)
     const handleSelect = (selectedGender) => {
       setGender(selectedGender);
@@ -41,7 +43,10 @@ setTimeout(()=>{
 },2000)
 
 }
-catch(err){
+catch(error){
+  if (error.response && error.response.data.message === "jwt expired") {
+    navigate("/login")
+  }
     console.log(err)
 }
 

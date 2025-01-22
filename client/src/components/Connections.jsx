@@ -22,9 +22,11 @@ const connections=useSelector((store)=>store.connections)
 console.log(res.data.data)
   dispatch(addConnections(res.data.data))
         }
-        catch(err){
-
-            console.log(err.message)
+        catch(error){
+          if (error.response && error.response.data.message === "jwt expired") {
+            navigate("/login")
+          }
+           
 
         }
 
