@@ -26,6 +26,9 @@ console.log(res.data.data)
           if (error.response && error.response.data.message === "jwt expired") {
             navigate("/login")
           }
+          else {
+            console.error("Error fetching connections:", error);
+        }
            
 
         }

@@ -33,6 +33,10 @@ export const getmessage=async(req,res)=>{
 try{
      const reciever_id = req.params.id;
      const loginUser = req.user;
+     if (!reciever_id) {
+      return res.status(400).json({ message: "Reciever ID is required" });
+    }
+    
     const data= await messageModel.find({  $and: [
         {  sender: loginUser._id },
         {  reciever: reciever_id },

@@ -9,10 +9,16 @@ import { useNavigate } from 'react-router-dom';
 
 
 import { Base_Url } from "../../constants";
+import { setSelectedUser } from "../../utilis/chatuser.Slice";
 const Sidebar = () => {
   const connections = useSelector((store) => store.connections);
+  const selecteduser = useSelector((store) => store.chatuser);
+
   const dispatch= useDispatch()
-const navigate=useNavigate
+const navigate=useNavigate()
+
+
+
   const fetchConnections=async()=>{
     try{
         
@@ -34,7 +40,12 @@ dispatch(addConnections(res.data.data))
     },[])
 
 
+    const SelectedUserHandler=(connection)=>{
+  console.log(connection);
+  dispatch(setSelectedUser(connection))
+  
 
+    }
   if (!connections)return <h1>Loading</h1>;
 
   return (
@@ -54,8 +65,12 @@ dispatch(addConnections(res.data.data))
       <div className="  overflow-auto scrollbar- scrollbar-thin scrollbar-thumb-black scrollbar-track-white ">
         {connections?.map((connection) => (
           <div key={connection._id}>
-            <div className="flex items-center gap-2 hover:bg-sky-200 rounded-lg cursor-pointer">
-              <div className="avatar online">     
+            <div onClick={()=>SelectedUserHandler(connection)}  className={`${
+      selecteduser?._id === connection._id ? "bg-sky-400" : ""
+    } flex items-center gap-2 hover:bg-sky-200 rounded-lg cursor-pointer px-2 py-2`}>
+          
+          
+             <div className="avatar online flex-shrink-0">     
                 <div className="w-12 rounded-full">
                   
                   <img
