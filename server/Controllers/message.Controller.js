@@ -71,29 +71,55 @@ export const sendMessage = async (req, res) => {
 };
 
 
-export const getmessage=async(req,res)=>{
-try{
-     const reciever_id = req.params.id;
-     const loginUser = req.user;
-     if (!reciever_id) {
-      return res.status(400).json({ message: "Reciever ID is required" });
+// export const getmessage=async(req,res)=>{
+// try{
+//      const reciever_id = req.params.id;
+//      const loginUser = req.user;
+//      if (!reciever_id) {
+//       return res.status(400).json({ message: "Reciever ID is required" });
+//     }
+    
+//     const data= await messageModel.find({  $and: [
+//         {  sender: loginUser._id },
+//         {  reciever: reciever_id },
+//       ],})
+    
+    
+//   return res.status(200).json({data})
+// }
+// catch(err){
+//     return res.status(400).json(err.message)
+
+
+
+// }
+
+
+
+// }
+
+
+export const getmessage = async (req, res) => {
+  try {
+    const reciever_id = req.params.id; // ID of the user you are chatting with
+    const loginUser = req.user; // Logged-in user details
+    
+    // Validate input
+    if (!reciever_id) {
+      return res.status(400).json({ message: "Receiver ID is required" });
     }
     
-    const data= await messageModel.find({  $and: [
-        {  sender: loginUser._id },
-        {  reciever: reciever_id },
-      ],})
-    
-    console.log(data)
-  return res.status(200).json({message:"succesfully get messages",data})
-}
-catch(err){
-    return res.status(400).json(err.message)
+    // Fetch conversation between logged-in user and the receiver
+    const messages = await messageModel.find({
+      $or: [
+        { sender: loginUser._id, reciever: reciever_id },
+        { sender: reciever_id, reciever: loginUser._id }
+      ]
+    }).sort({ createdAt: 1 }); // Sort messages by creation time
 
-
-
-}
-
-
-
-}
+    return res.status(200).json({ data: messages });
+  } catch (err) {
+    console.error("Error fetching messages:", err);
+    return res.status(500).json({ message: "Failed to fetch messages", error: err.message });
+  }
+};

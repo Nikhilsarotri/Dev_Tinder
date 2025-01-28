@@ -22,7 +22,7 @@ const MessageContainer = () => {
         </div>
       </div>
      <div className="overflow-auto"> <Messages/>
-      <Messages/>
+  
     
      </div>
      <Sendinput/>
