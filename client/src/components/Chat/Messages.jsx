@@ -74,13 +74,13 @@ const Messages = () => {
     }
   }, [messages]);
 
-  if (!messages.length) {
-    return <p>No messages found.</p>;
-  }
+  // if (!messages.length) {
+  //   return <p>No messages found.</p>;
+  // }
 
   return (
     <div className="px-4 flex-1 overflow-auto">
-      {messages.map((message) => (
+      {messages&&messages.map((message) => (
         <div key={message._id}>
           {console.log(message,"here i message detals")}
           <div className={`chat ${authuser._id === String(message.sender) ? "chat-end" : "chat-start"}`}>

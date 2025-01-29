@@ -48,8 +48,7 @@ navigate("/login")
 
 
   return (
-    <div className="navbar bg-back
-sticky top-0 z-50">
+    <div className="navbar bg-back fixed top-0 left-0 w-full z-50 shadow-md">
       <div className="flex-1">
       <Link to="/">
       <img
