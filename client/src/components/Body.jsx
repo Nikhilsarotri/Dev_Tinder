@@ -6,13 +6,14 @@ import { useEffect } from "react";
 import { addUser } from "../utilis/userSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import  {Base_Url} from "../constants"
+import  {Base_Url} from "../constants";
+
 
 const Body = () => {
   const dispatch= useDispatch()
   const navigate=useNavigate()
   const userData= useSelector((store)=> store.user)
-
+  
 
   const fetchUser = async () => {
     if(userData) return;
@@ -38,6 +39,9 @@ const Body = () => {
     
     fetchUser();
   },[])
+
+
+
 
 
 

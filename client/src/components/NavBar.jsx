@@ -39,8 +39,11 @@ const handleLogout=async(req,res)=>{
 navigate("/login")
 
   }
-  catch(err){
-    console.log(err)
+  catch(error){
+    if (error.response && error.response.data.message === "jwt expired") {
+      navigate("/login")
+    }
+
 
   }
 }
