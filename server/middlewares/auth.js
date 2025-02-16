@@ -8,9 +8,9 @@ import userModels from "../Models/userModel.js";
     }
     const decodedata =  JWT.verify(token,process.env.JWT_SECRET_KEY);
 
-    console.log(decodedata, "here  is decoded data");
+    // console.log(decodedata, "here  is decoded data");
     const {userid} = decodedata;
-    console.log(userid,".>>>>>>>>>>")
+    // console.log(userid,".>>>>>>>>>>")
 
     const user = await userModels.findById(userid);
     if (!user) {

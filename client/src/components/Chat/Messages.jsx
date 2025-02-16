@@ -54,19 +54,28 @@
 
 
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import useGetmessages from "../hooks/getmessages";
+import useGetRealtimeMessages from "../hooks/useGetReltimemessgehook"
 import { useSelector } from "react-redux";
+import io from "socket.io-client";
+import { Base_Url } from "../../constants";
 
 const Messages = () => {
   useGetmessages();
+  useGetRealtimeMessages();
   const scroll = useRef();
 
   const messages = useSelector((store) => store.messages?.messages?.data || []);
   const selecteduser = useSelector((store) => store?.chatuser);
   const authuser = useSelector((store) => store.user);
+ 
   console.log(authuser, "login user");
   console.log(messages, "here is messages");
+//implementing web sockets;
+
+
+
 
   useEffect(() => {
     if (scroll.current) {

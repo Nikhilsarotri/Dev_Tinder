@@ -4,10 +4,51 @@ import MessageContainer from './MessageContainer';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { useState,useEffect } from 'react';
+import io from "socket.io-client";
+import { Base_Url } from '../../constants';
+import { setSocket } from '../../utilis/socketSlice';
+import { setOnlineUsers } from '../../utilis/onlineUserSlice';
 
 const Chatpage = () => {
-  
-  
+  const authuser = useSelector((store) => store.user);
+  const socket= useSelector((store=>store?.socket?.socket))
+   const dispatch= useDispatch()
+useEffect(()=>{
+
+if(authuser){
+const socket= io(`${Base_Url}`,{
+query:{
+
+userId:authuser._id
+
+}
+
+})
+ dispatch(setSocket(socket));
+socket.on('getonlineUsers',(OnlineUsers)=>{
+dispatch(setOnlineUsers(OnlineUsers))
+});
+
+return ()=>socket.close();
+}
+else{
+if(socket){
+socket.close()
+dispatch(setSocket(null));
+
+
+}
+
+
+
+}
+
+
+},[authuser])
+
+
+
 
 
 

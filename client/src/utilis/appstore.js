@@ -5,7 +5,9 @@ import Connections from "../components/Connections";
 import connectionsReducer from "./connectionSlice";
 import  requestsReducer from "./requestSlice";
 import messagesReducer from "./messagesSlice";
-import chatuserReducer from "./chatuser.Slice"
+import chatuserReducer from "./chatuser.Slice";
+import socketReducer from "./socketSlice";
+import onlineReducer from "./onlineUserSlice"
 const appStore= configureStore({
 reducer:{
     user:userReducer,
@@ -13,7 +15,9 @@ reducer:{
 connections:connectionsReducer,
 requests:requestsReducer,
 messages:messagesReducer,
-chatuser:chatuserReducer
+chatuser:chatuserReducer,
+socket:socketReducer,
+onlineUsers:onlineReducer
 },
 })
 export  default appStore;
