@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { Base_Url } from "../../constants";
 import { setSelectedUser } from "../../utilis/chatuser.Slice";
 
-const Sidebar = () => {
+const Sidebar = ({onChatSelect}) => {
   const connections = useSelector((store) => store.connections);
   const selecteduser = useSelector((store) => store.chatuser);
   const onlineUsers = useSelector((store) => store?.onlineUsers);
@@ -36,12 +36,13 @@ const Sidebar = () => {
 
   const SelectedUserHandler = (connection) => {
     dispatch(setSelectedUser(connection));
+    onChatSelect();
   };
 
   if (!connections) return <h1>Loading</h1>;
 
   return (
-    <div className="flex flex-col w-full border-r border-sky-100 px-4">
+    <div className="flex flex-col  flex-1  w-full p-6 border-r sm:h-screen md:h-dvh   border-sky-100 px-4 bg-sky-500/80 backdrop-blur-md    text-white shadow-lg rounded-lg">
       <form className="flex items-center gap-2">
         <input
           className="input input-border border border-sky-500 rounded-md"

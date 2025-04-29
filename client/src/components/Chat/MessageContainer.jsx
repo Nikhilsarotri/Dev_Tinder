@@ -12,7 +12,7 @@ const MessageContainer = () => {
       console.log(selecteduser,"here is selected")
     
   return (
-    <>{selecteduser!==null?    <div className="  md:min-w-[750px] flex flex-col  ">
+    <>{selecteduser!==null?    <div className="  md:min-w-[750px]  sm:h-screen h-dvh md:h-dvh flex flex-col  flex-1 ">
       <div className="flex items-center gap-2  bg-sky-500  text-white   rounded-sm px-4 py-2 mb-2">
         <div className={`avatar ${isOnline ? "online" : "offline"}`}>
 
@@ -20,6 +20,7 @@ const MessageContainer = () => {
             <img src={selecteduser?.image_url||"https://www.shutterstock.com/image-vector/avatar-gender-neutral-silhouette-vector-600nw-2470054311.jpg"} />
           </div>
         </div>
+        
         <div className="">
           <div className="flex gap-2 ">
             <p>{selecteduser?.name}</p>
