@@ -20,13 +20,14 @@ import { app, server } from "./socket/socket.js";
 dotenv.config();
 connectdb();
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: "http://13.61.155.77",  // Replace with your frontend's public IP/domain
     credentials: true
 }));
+
 app.use(express.json());
 app.use(cookieParser());
 
-const port = process.env.PORT || 8001;
+const port = process.env.PORT ;
 
 app.use("/user", userroute);
 app.use("/connections", connectionroute);
